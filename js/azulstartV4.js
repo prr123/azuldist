@@ -1,7 +1,10 @@
 // v3 replace addButton with addElement
 //
+var azul = new HtmlPage;
+
 window.onload = (event) => {
-    const azul = new HtmlPage;
+
+//    const azul = new HtmlPage;
     let pageObj = {
         mainDiv: {
             style: {
@@ -41,7 +44,7 @@ window.onload = (event) => {
             id: 'footer',
             className: 'pagSections',
         },
-    }
+    };
 
     let metaObj = {
         metaNames: [
@@ -83,7 +86,7 @@ window.onload = (event) => {
         className: 'doch3',
         textContent: 'testing websocket',
         typ: 'h3',
-    }
+    };
     azul.addElement(hdObj);
 
     let hd2Obj = {
@@ -93,7 +96,7 @@ window.onload = (event) => {
         className: 'doch3',
         textContent: 'docmain',
         typ: 'h3',
-    }
+    };
     azul.addElement(hd2Obj);
 
     let hdfooterObj = {
@@ -103,7 +106,7 @@ window.onload = (event) => {
         className: 'doch3',
         textContent: 'footer',
         typ: 'h3',
-    }
+    };
     azul.addElement(hdfooterObj);
 
     let butObj = {
@@ -149,15 +152,15 @@ window.onload = (event) => {
 					}
 	  				webSocket.send('Hello Server ' + count + '!');
 					count++;
-				}
+				};
 			});
-//			webSocket.onmessage = function(data) { console.log(data);}
-//			return webSocket;
 		},
     };
 
 
+
     let butNObj = {
+//		but2() {console.log('button click');},
         style: {
 			height: '30px',
 			width: '100px',
@@ -169,10 +172,10 @@ window.onload = (event) => {
         parent: azul.header,
         typ: 'button',
 		textContent: 'press',
+		elNam: 'but',
 		evlist: {
-			click: function() {
-				console.log('button click');
-			}
+			click: function but1() {console.log('button click');},
+//			click: this.but2,
 		},
 	};
 
@@ -180,7 +183,31 @@ window.onload = (event) => {
 
     document.body.appendChild(azul.divMain);
 
-	
+//	console.log('button name: ' + azul.but);
+
+	// add fetch
+//	fetchTxtAsync("http://89.116.30.49:9005/js/azultest.js", ftst);
+
+	// opt2 add script
+/*
+	const script = document.createElement('script');
+
+	script.src = '/js/azultest.js';
+	script.async = true;
+
+	script.onload = () => {
+  		console.log('Script loaded successfuly');
+	};
+	script.onerror = () => {
+  		console.log('Error occurred while loading script');
+	};
+	document.head.appendChild(script);
+*/
+
+	// opt 3
+	let url = '/js/azultest.js';
+	LoadScript(url);
+
 };
 
 

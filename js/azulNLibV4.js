@@ -3,13 +3,37 @@
 // v4
 // add js file
 
-async function fetchDataAsync(url) {
+async function fetchJsonAsync(url) {
     const response = await fetch(url);
     let respObj = await response.json();
 //    console.log("resp: " + respObj);
 	return respObj;
 }
 
+/*
+async function fetchTxtAsync(url, f) {
+    const resp = await fetch(url);
+    let txt = await resp.text();
+    console.log("resp: " + txt);
+	f(txt);
+	return;
+}
+*/
+
+async function LoadScript(url) {
+    const script = document.createElement('script');
+
+    script.src = url;
+    script.async = true;
+
+    script.onload = () => {
+        console.log('Script loaded successfuly');
+    };
+    script.onerror = () => {
+        console.log('Error occurred while loading script');
+    };
+    document.body.appendChild(script);
+}
 
 class HtmlPage {
     constructor () {
@@ -157,11 +181,11 @@ class HtmlPage {
 
 		if (Object.hasOwn(elObj,'evlist')) {
 			for (const [key, value] of Object.entries(elObj.evlist)) {
-				console.log(`${key}: ${value}`);
+				console.log(`key: ${key}, val: ${value}`);
 				el.addEventListener(key,value);
 			}
 		}
-
+		return el;
 	} // add ElementAlt
 
 
