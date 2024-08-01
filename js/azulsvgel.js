@@ -128,7 +128,7 @@
 
 	};
 
-	const svgWid = new svgWidget;
+//	const svgWid = new svgWidget;
 	let svgEl = svgWid.createSvg(svgObj);
 
 	ndiv.appendChild(svgEl);
