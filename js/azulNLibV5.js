@@ -1,0 +1,238 @@
+// v3 
+// add event from object
+// v4
+// add js file
+// v5 addElementAlt
+
+async function fetchJsonAsync(url) {
+    const response = await fetch(url);
+    let respObj = await response.json();
+//    console.log("resp: " + respObj);
+	return respObj;
+}
+
+/*
+async function fetchTxtAsync(url, f) {
+    const resp = await fetch(url);
+    let txt = await resp.text();
+    console.log("resp: " + txt);
+	f(txt);
+	return;
+}
+*/
+
+async function LoadScript(url) {
+    const script = document.createElement('script');
+
+    script.src = url;
+    script.type = "application/javascript";
+
+    script.onload = () => {
+        console.log('Script loaded successfuly');
+    };
+    script.onerror = () => {
+        console.log('Error occurred while loading script');
+    };
+   	document.body.appendChild(script);
+}
+
+class HtmlPage {
+    constructor () {
+    	this.svgNS = "http://www.w3.org/2000/svg";
+    	this.iconSize = 48;
+    }
+
+    init(pgObj) {
+
+      	let divMain = document.createElement('div');
+//     	Object.assign(divMain,pgObj.mainDiv);
+      	Object.assign(divMain.style,pgObj.mainDiv.style);
+		if (pgObj.append) {document.body.appendChild(divMain);}
+		// let objList = Object.keys(pgObj);
+		// console.log(objList);
+		const hasHeader = 'header' in pgObj;
+		if (hasHeader) {
+			let headerObj = document.createElement('header');
+			Object.assign(headerObj, pgObj.header);
+			Object.assign(headerObj.style, pgObj.header.style);
+			divMain.appendChild(headerObj);
+			this.header = headerObj;
+		}
+		const hasSection = 'section' in pgObj;
+		if (hasSection) {
+			let sectionObj = document.createElement('section');
+			Object.assign(sectionObj, pgObj.section);
+			Object.assign(sectionObj.style, pgObj.section.style);
+			divMain.appendChild(sectionObj);
+			this.docbody = sectionObj;
+		}
+		const hasFooter = 'footer' in pgObj;
+		if (hasFooter) {
+			let footerObj = document.createElement('footer');
+			Object.assign(footerObj, pgObj.footer);
+			Object.assign(footerObj.style, pgObj.footer.style);
+			divMain.appendChild(footerObj);
+			this.footer = footerObj;
+		}
+      	this.divMain = divMain;
+	  	return divMain;
+	}
+
+/*
+	addElement(elObj) {
+//      console.log('elObj: ', + elObj);
+		if (elObj.typ === undefined) {return}
+        let el = document.createElement(elObj.typ);
+        Object.assign(el,elObj);
+		if (Object.hasOwn(elObj, 'style')) {Object.assign(el.style,elObj.style);}
+		if (Object.hasOwn(elObj,'parent')) {
+			if (typeof elObj.parent === 'object') {
+				if (elObj.parent === null) {
+					document.body.appendChild(el);
+				} else {
+					elObj.parent.appendChild(el);
+				}
+			}
+			if (typeof elObj.parent === 'string') {
+				const parentEl = document.getElementById(elObj.parent);
+				if (parentEl !== undefined) {
+					parentEl.appendChild(el);
+				}
+			}
+		}
+
+		if (Object.hasOwn(elObj, 'elNam')) {
+			this[elObj.elNam] = el;
+		}
+
+//		if (Object.hasOwn(elObj, 'file')) {
+//			el.addEventListener('mouseup', (event) => {this.getFile(event, elObj)});
+//		}
+
+		if (Object.hasOwn(elObj, 'clickFun')) {
+			if (elObj.clickFun != null) {
+				el.addEventListener('mouseup', (event) => {moUp(event,el)});
+//				console.log('el click');
+			}
+		}
+
+		if (Object.hasOwn(elObj, 'hovStyle')) {
+			el.baseStyle = {};
+			let keys = Object.keys(el.hovStyle)
+       	    for (let i=0; i<keys.length; i++) {
+                let prop = keys[i];
+                el.baseStyle[prop] = el.style[prop];
+			}
+
+
+			el.addEventListener('mouseenter', (event) => {moEnt(event, el);});
+			el.addEventListener('mouseleave', (event) => {moLev(event, el);});
+		}
+
+        return el;
+
+        function moEnt(ev, el) {
+            ev.preventDefault();
+            Object.assign(el.style,el.hovStyle);
+            return;
+        }
+
+        function moLev(ev, el) {
+            ev.preventDefault();
+            Object.assign(el.style,el.baseStyle);
+            return;
+        }
+
+        function moUp(e, el) {
+            e.preventDefault();
+//          console.log('el click');
+            el.clickFun(el.textContent);
+        }
+	} // add Element
+*/
+
+	addElementAlt(elObj) {
+//      console.log('elObj: ', + elObj);
+		if (elObj.typ === undefined) {return}
+        let el = document.createElement(elObj.typ);
+        Object.assign(el,elObj);
+		if (Object.hasOwn(elObj,'style')) {Object.assign(el.style,elObj.style);}
+
+// remove
+/*
+		if (Object.hasOwn(elObj,'parent')) {
+			if (typeof elObj.parent === 'object') {
+				if (elObj.parent === null) {
+					document.body.appendChild(el);
+				} else {
+					elObj.parent.appendChild(el);
+				}
+			}
+		}
+*/
+		if (Object.hasOwn(elObj,'elNam')) {
+			this[elObj.elNam] = el;
+		}
+
+		if (Object.hasOwn(elObj,'evlist')) {
+			for (const [key, value] of Object.entries(elObj.evlist)) {
+				console.log(`key: ${key}, val: ${value}`);
+				el.addEventListener(key,value);
+			}
+		}
+		elObj.parent.appendChild(el);
+		return el;
+	} // add ElementAlt
+
+
+    addMeta(metaObj) {
+        const headEl = document.head;
+        let metaEl = document.createElement('meta');
+        metaEl.setAttribute('charset','UTF-8');
+        headEl.appendChild(metaEl);
+
+        for (let i=0; i<metaObj.metaNames.length; i++) {
+            let metaEl = document.createElement('meta');
+            metaEl.name = metaObj.metaNames[i].name;
+            metaEl.content = metaObj.metaNames[i].content;
+            headEl.appendChild(metaEl);
+        }
+
+    }
+
+    addLink(linkObj) {
+        const headEl = document.head;
+        let linkEl = document.createElement('link');
+        let keys = Object.keys(linkObj);
+        for (let i=0; i< keys.length; i++) {
+            let key = keys[i];
+            linkEl.setAttribute(key, linkObj[key])
+        }
+        headEl.appendChild(linkEl);
+		return linkEl;
+    }
+
+    addStyleObj() {
+
+        const styleEl = document.createElement('style');
+        styleEl.type = 'text/css';
+
+        document.head.appendChild(styleEl);
+
+		this.styleBaseEl = styleEl;
+        let styleSheet = styleEl.sheet;
+//        styleSheet.insertRule('* { margin: 0; padding: 0; font-family: Calibri; list-style: none; text-decoration:none;}');
+        styleSheet.insertRule('* { margin: 0; padding: 0; font-family: Calibri; text-decoration:none;}');
+		this.styleSheet = styleSheet;
+		return styleEl;
+    }
+
+    addCssRule(cssRuleObj) {
+		let styleSheet = this.styleSheet;
+		for (let i=0; i<cssRuleObj.cssRules.length; i++) {
+			let cssRule = cssRuleObj.cssRules[i]
+    	    styleSheet.insertRule(cssRule);
+		}
+	}
+
+} //htmlPage
