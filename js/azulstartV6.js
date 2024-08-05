@@ -2,8 +2,7 @@
 //
 var azul = new HtmlPage;
 
-
-function crePage() {
+async function crePage() {
 //    const azul = new HtmlPage;
     let pageObj = {
         mainDiv: {
@@ -54,22 +53,11 @@ function crePage() {
             ],
     };
 
-/*
-    let linkObj = {
-        id: 'azulCss',
-        type: 'text/css',
-        href: 'azulLib.css',
-    }
-*/
-    azul.init(pageObj);
+    azul.addStyleObj();
 
     azul.addMeta(metaObj);
 
-//    azul.addLink(linkObj);
-
-    azul.addStyleObj();
-
-//    azul.addScript('azulLib.js');
+    azul.init(pageObj);
 
 
     let hdStyl = {
@@ -169,14 +157,15 @@ function crePage() {
 			strokeWidth:'10',
         	strokeLinecap: 'round',
  //     strokeLinejoin: 'miter',
-        	stroke: '#000000',
+//        	stroke: '#000000',
+        	stroke: 'black',
         	fill : 'none',
 		},
 		pathstr: HtmlPage.icons.menu,
 	};
 
-	console.log("path: ", HtmlPage.icons.menu);
-	azul.addIcon(menuObj);
+//	console.log("path: ", HtmlPage.icons.menu);
+	azul.menuIcon = azul.addIcon(menuObj);
 
     let butNObj = {
         style: {
@@ -203,19 +192,14 @@ function crePage() {
 
 
 	// opt 3
-	let url = '/js/azultest.js';
-	LoadScript(url);
+//	let url = '/js/azultest.js';
+//	LoadScript(url);
 
 };
 
 crePage();
 
-//let url = '/js/azulMat.js';
+
 let url = '/js/azulMatV2.js';
 LoadScript(url);
 
-/*
-window.onload = (event) => {
-	crePage();
-};
-*/

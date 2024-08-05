@@ -3,6 +3,7 @@
 // v4
 // add js file
 // v5 addElementAlt
+// v6 add addIcon
 
 async function fetchJsonAsync(url) {
     const response = await fetch(url);
@@ -27,9 +28,9 @@ async function LoadScript(url) {
     script.src = url;
     script.type = "application/javascript";
 
-    script.onload = () => {
-        console.log('Script loaded successfuly');
-    };
+//    script.onload = () => {
+//        console.log('Script loaded successfuly');
+//    };
     script.onerror = () => {
         console.log('Error occurred while loading script');
     };
@@ -101,13 +102,27 @@ class HtmlPage {
 
 		if (Object.hasOwn(elObj,'evlist')) {
 			for (const [key, value] of Object.entries(elObj.evlist)) {
-				console.log(`key: ${key}, val: ${value}`);
+//				console.log(`key: ${key}, val: ${value}`);
 				el.addEventListener(key,value);
 			}
 		}
 		elObj.parent.appendChild(el);
 		return el;
 	} // add ElementAlt
+
+	addElEvents(el, elObj) {
+
+		if (el === undefined) {return}
+//		let par = el.parentNode;
+
+		if (Object.hasOwn(elObj,'evlist')) {
+			for (const [key, value] of Object.entries(elObj.evlist)) {
+//				console.log(`key: ${key}, val: ${value}`);
+				el.addEventListener(key,value);
+			}
+		}
+//		par.replaceChild(newel, oldel);
+	}
 
 	// rework attributes
 	addIcon(iconObj) {
@@ -127,11 +142,13 @@ class HtmlPage {
     	Object.assign(svgEl.style,iconObj.svgStyl);
 
     	let pathEl = document.createElementNS(svgNS,'path');
+/*
     	pathEl.style.strokeWidth = '10px';
     	pathEl.style.strokeLinecap = 'round';
     	pathEl.style.strokeLinejoin = 'miter';
     	pathEl.style.stroke = '#000000';
     	pathEl.style.fill = 'none';
+*/
     	Object.assign(pathEl.style,iconObj.pStyl);
     	pathEl.setAttribute('d', iconObj.pathstr)
 
