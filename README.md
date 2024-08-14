@@ -58,5 +58,22 @@ changed addIcon:
  - addeventlist
  - parent optional
 
+added modules:
+- tested modules indexV10MOD
+- tested dynamic modules
+
+## V11
+
 testing azulpdf viewer
 
+ - simple viewer from example
+
+todo:  
+building a viewer
+
+ - multiple pages
+ - zoom
+
+## V12
+
+reading selections from a pdf rendered page
