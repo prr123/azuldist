@@ -32,18 +32,30 @@ const butRObj = {
 		click: function butlf() {console.log('right button click');},
 	},
 };
-
 azul.addElement(butRObj);
 
-
-const vudiv = {
+const vudivObj = {
 	typ: 'div',
-	parent: azul.docbody,
+//	parent: azul.docbody,
 	style: {
 		minHeight: '400px',
 		margin: '5px',
-		border: '1px solid blue',
+		border: '0px solid blue',
 	},
 };
+const vdiv = azul.addElement(vudivObj);
 
-azul.addElement(vudiv);
+const canvasObj = {
+	typ: 'canvas',
+	parent: vdiv,
+	style: {
+		width: '100%',
+		border: '1px, dashed green',
+	},
+}
+
+let canvas = azul.addElement(canvasObj);
+
+azul.docbody.appendChild(vdiv);
+
+

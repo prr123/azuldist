@@ -149,7 +149,3 @@ const docObj = {
 azul.init(docObj);
 
 crePage();
-
-
-const url = '/js/azulPdfViewer.js';
-LoadScript(url);

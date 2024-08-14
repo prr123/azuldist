@@ -36,11 +36,11 @@ async function LoadScript(url) {
     script.src = url;
     script.type = "application/javascript";
 
-//    script.onload = () => {
-//        console.log('Script loaded successfuly');
-//    };
+    script.onload = () => {
+        console.log('Script loaded successfully: ' + url);
+    };
     script.onerror = () => {
-        console.log('Error occurred while loading script');
+        console.log('Error occurred while loading script: ' + url);
     };
    	document.body.appendChild(script);
 }
@@ -199,7 +199,7 @@ let azul = {
 			}
 		}
 
-    	if (iconObject.hasOwnProperty('parent')) {iconObj.parent.appendChild(svgEl);}
+    	if (iconObj.hasOwnProperty('parent')) {iconObj.parent.appendChild(svgEl);}
     	return svgEl;
 	},
 
