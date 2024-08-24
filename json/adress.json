@@ -1,9 +1,10 @@
 {
-	"first": "Peter",
-	"last": "test",
-	"street": "Maestro Gozalbo",
+	"First": "Peter",
+	"Last": "test",
+	"Street": "Maestro Gozalbo",
 	"Nr": 10,
 	"Puerta":"12",
-	"city": "Valencia",
-	"zip": "46005"
+	"City": "Valencia",
+	"Zip": "46005",
+	"Country": "Spain"
 }
