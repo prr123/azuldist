@@ -1,4 +1,3 @@
-
 const jsurl = '/json/adress.json';
 
 async function fetchJson(geturl) {

@@ -6,10 +6,10 @@ butLObj = {
 		border: '1px solid green',
 	},
 	typ: 'button',
-	textContent: 'left',
-	evlist: {
-		click: function butrf() {console.log('left button click');},
-	},
+	textContent: 'prev',
+//	evlist: {
+//		click: function butrf() {console.log('left button click');},
+//	},
 };
 const lbut = azul.addElement(butLObj);
 
@@ -22,9 +22,9 @@ zinObj = {
 	},
 	typ: 'button',
 	textContent: 'zoom in',
-	evlist: {
-		click: function zinfun() {console.log('zoom in click');},
-	},
+//	evlist: {
+//		click: function zinfun() {console.log('zoom in click');},
+//	},
 };
 const zin = azul.addElement(zinObj);
 
@@ -37,11 +37,12 @@ const butRObj = {
 		border: '1px solid green',
 	},
 	typ: 'button',
-	textContent: 'right',
-	evlist: {
-		click: function butlf() {console.log('right button click');},
-	},
+	textContent: 'next',
+//	evlist: {
+//		click: function butlf() {console.log('next');},
+//	},
 };
+
 const rbut = azul.addElement(butRObj);
 
 const zoutObj = {
@@ -54,9 +55,9 @@ const zoutObj = {
 	},
 	typ: 'button',
 	textContent: 'zoom out',
-	evlist: {
-		click: function zoutfun() {console.log('zoom out button click');},
-	},
+//	evlist: {
+//		click: function zoutfun() {console.log('zoom out button click');},
+//	},
 };
 const zout = azul.addElement(zoutObj);
 
@@ -76,6 +77,8 @@ const lab = azul.addElement(labObj);
 
 pgInpObj = {
 	typ: 'input',
+	type: 'number',
+	value: '0',
 	style: {
 		width: '20px',
 		borderWidth: '0',
@@ -96,8 +99,17 @@ pagesObj = {
 		margin: '0 0 0 20px',
 	}
 }
-const pages = azul.addElement(pagesObj);
+let pages = azul.addElement(pagesObj);
 
+zoomObj = {
+	typ: 'span',
+	textContent: 'Zoom: 1.0',
+	style: {
+		width: '50px',
+		margin: '0 0 0 20px',
+	}
+}
+let zoom = azul.addElement(zoomObj);
 
 const vudivObj = {
 	typ: 'div',
@@ -111,25 +123,41 @@ const vudivObj = {
 };
 const vdiv = azul.addElement(vudivObj);
 
+const cvdivObj = {
+	typ: 'div',
+//	parent: azul.docbody,
+	style: {
+		maxHeight: '800px',
+		margin: '5px',
+		border: '1px dotted green',
+		overflow: 'auto',
+	},
+};
+const cvdiv = azul.addElement(cvdivObj);
+
+
 vdiv.appendChild(rbut);
 vdiv.appendChild(lbut);
 vdiv.appendChild(zin);
 vdiv.appendChild(zout);
 vdiv.appendChild(lab);
 vdiv.appendChild(pages);
+vdiv.appendChild(zoom);
+vdiv.appendChild(cvdiv);
 
 
 const canvasObj = {
 	typ: 'canvas',
-	parent: vdiv,
+	parent: cvdiv,
 	style: {
-		width: '100%',
+//		width: '100%',
+		margin: '5px',
 		border: '1px, dashed green',
+//		float: 'right',
+//		overflow: 'auto',
 	},
 }
 
 let canvas = azul.addElement(canvasObj);
 
 azul.docbody.appendChild(vdiv);
-
-
