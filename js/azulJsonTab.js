@@ -174,7 +174,7 @@ adrObj.then(
 function dispTab() {
 	if (page === curPage) {return}
 	const adr = adrList[page];
-	console.log("adrData: " + page + ':' + adr);
+//	console.log("adrData: " + page + ':' + adr);
 	if (curTab) {
 		tab1.cells[0].textContent = adr["First"];
 		tab1.cells[2].textContent = adr["Last"];
