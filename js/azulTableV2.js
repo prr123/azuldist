@@ -23,13 +23,16 @@ azul.addTable = function(tblObj) {
 
 	let tbody = tbl.createTBody();
 
+	let rowList = new Array(tbl.nrows);
 	for (let row=0; row < tbl.nrows; row++) {
 		let trow = tbody.insertRow();
 		trow.id = tbl.id + 'R:' + row;
 		if (trStylProp) {Object.assign(trow.style, tblObj.trStyl)}
 //            trow.classList.add((tbl.id + 'Row'), (tbl.id + 'Row' + row));
+		let cellList = new Array(tbl.ncols);
 		for (let col=0; col < tbl.ncols; col++) {
 			let newCell = trow.insertCell();
+			cellList[col] = newCell;
 			if (tblObj.hasOwnProperty('cell')) {Object.assign(newCell, tblObj.cell);}
 			if (cellStylProp) {Object.assign(newCell.style, tblObj.cellStyl);}
 //                newCell.id = tbl.id + 'R' + row + 'C' + col;
@@ -42,7 +45,9 @@ azul.addTable = function(tblObj) {
 //                newCell.addEventListener('mouseenter',(event) => {cellHover(event)});
 //                newCell.addEventListener('mouseleave',(event) => {cellLeave(event)});
 		}
+		rowList[row] = cellList;
 	} // row
+	tbl.cells = rowList;
 	return tbl;
 }
 
@@ -76,6 +81,8 @@ const tabObj = {
 };
 
 let tab = azul.addTable(tabObj);
+
+tab.cells[0][0].textContent = 'test';
 
 tdiv.appendChild(tab);
 

@@ -1,7 +1,9 @@
-const myWorker = new Worker('/js/worker.js');
+onmessage = function (event) {
+  console.log('Received message from main thread:', event.data);
 
-myWorker.postMessage(5);
+  // Perform some heavy computation
+  const result = event.data * 2;
 
-myWorker.onmessage = function (event) {
-  console.log('Received message from worker:', event.data);
+  // Send the result back to the main thread
+  postMessage(result);
 };

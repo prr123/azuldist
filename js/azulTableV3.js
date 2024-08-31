@@ -16,20 +16,32 @@ azul.addTable = function(tblObj) {
 		let hdCell = hrow.insertCell();
 	}
 	let trStylProp = false;
-	if (tblObj.hasOwnProperty('trStyl')) {trStylProp = true;}
+	if (tblObj.hasOwnProperty('trStyl')) {
+		tbl.trStyl = {};
+		Object.assign(tbl.trStyl, tblObj.trStyl)
+		trStylProp = true;
+	}
 
 	let cellStylProp = false;
-	if (tblObj.hasOwnProperty('cellStyl')) {cellStylProp = true;}
+	if (tblObj.hasOwnProperty('cellStyl')) {
+		tbl.cellStyl = {};
+		Object.assign(tbl.cellStyl, tblObj.cellStyl)
+		cellStylProp = true;
+	}
 
 	let tbody = tbl.createTBody();
+	tbl.tbody = tbody;
 
+	let rowList = new Array(tbl.nrows);
 	for (let row=0; row < tbl.nrows; row++) {
 		let trow = tbody.insertRow();
 		trow.id = tbl.id + 'R:' + row;
 		if (trStylProp) {Object.assign(trow.style, tblObj.trStyl)}
 //            trow.classList.add((tbl.id + 'Row'), (tbl.id + 'Row' + row));
+		let cellList = new Array(tbl.ncols);
 		for (let col=0; col < tbl.ncols; col++) {
 			let newCell = trow.insertCell();
+			cellList[col] = newCell;
 			if (tblObj.hasOwnProperty('cell')) {Object.assign(newCell, tblObj.cell);}
 			if (cellStylProp) {Object.assign(newCell.style, tblObj.cellStyl);}
 //                newCell.id = tbl.id + 'R' + row + 'C' + col;
@@ -42,7 +54,9 @@ azul.addTable = function(tblObj) {
 //                newCell.addEventListener('mouseenter',(event) => {cellHover(event)});
 //                newCell.addEventListener('mouseleave',(event) => {cellLeave(event)});
 		}
+		rowList[row] = cellList;
 	} // row
+	tbl.cells = rowList;
 	return tbl;
 }
 
@@ -54,8 +68,33 @@ const tdivObj = {
         minHeight: '100px',
 	},
 };
-
 let tdiv = azul.addElement(tdivObj);
+
+butLObj = {
+    style: {
+        margin: '10px 0 0 20px',
+        height: '30px',
+        width: '100px',
+        border: '1px solid green',
+    },
+    typ: 'button',
+    textContent: 'add',
+};
+const addBut = azul.addElement(butLObj);
+
+const butRObj = {
+    style: {
+        margin: '10px 20px 0 0',
+        float: 'right',
+        height: '30px',
+        width: '100px',
+        border: '1px solid green',
+    },
+    typ: 'button',
+    textContent: 'del',
+};
+const delBut = azul.addElement(butRObj);
+
 
 const tabObj = {
 	nrows: 2,
@@ -75,8 +114,44 @@ const tabObj = {
 	},
 };
 
+
+//let tab = {};
+
 let tab = azul.addTable(tabObj);
 
+tab.addRow = function() {
+	console.log('add Row');
+	let tbody=tab.tbody
+	let nrow = tbody.insertRow(-1);
+	if (tab.hasOwnProperty('trStyl')) {Object.assign(nrow.style, tab.trStyl);}
+	let cellList = new Array(tab.ncols);
+
+	for (let col=0; col < tab.ncols; col++) {
+		let newCell = nrow.insertCell();
+		cellList[col] = newCell;
+		if (tab.hasOwnProperty('cellStyl')) {Object.assign(newCell.style, tab.cellStyl);}
+	}
+	tab.cells.push(cellList);
+	tab.nrows++;
+}
+
+addBut.addEventListener('click', tab.addRow);
+
+tab.delRow = function() {
+	console.log('del Row');
+	if (tab.nrows<2) {return}
+	let tbody=tab.tbody;
+	tbody.deleteRow(-1);
+
+	tab.cells.pop();
+	tab.nrows--;
+}
+
+delBut.addEventListener('click', tab.delRow);
+
+
+tdiv.appendChild(addBut);
+tdiv.appendChild(delBut);
 tdiv.appendChild(tab);
 
 azul.docbody.appendChild(tdiv);
