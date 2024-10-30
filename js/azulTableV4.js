@@ -20,7 +20,6 @@ azul.addTable = function(tblObj) {
 		if (tblObj.hasOwnProperty('hdStyl')) {
 			Object.assign(hdRow.style, tblObj.hdStyl)
 		}
-//cc
 
 		const hdcolNum = tblObj.head.length;
 
@@ -33,6 +32,7 @@ azul.addTable = function(tblObj) {
 			hdCell.textContent = tblObj.head[hdcol];
 		}
 	}
+
 	let trStylProp = false;
 	if (tblObj.hasOwnProperty('rowStyl')) {
 		tbl.rowStyl = {};
@@ -87,6 +87,7 @@ azul.addTable = function(tblObj) {
 
 		for (let col=0; col < tbl.ncols; col++) {
 			let newCell = nrow.insertCell();
+			if (tbl.edit) {newCell.contentEditable = 'true'};
 			cellList[col] = newCell;
 			if (tbl.hasOwnProperty('cellStyl')) {Object.assign(newCell.style, tbl.cellStyl);}
 		}
@@ -143,6 +144,7 @@ const delBut = azul.addElement(butRObj);
 
 
 const tabObj = {
+	edit: 'true',
 	nrows: 2,
 	ncols: 3,
 	colW: ['100px', '200px', '150px'],
