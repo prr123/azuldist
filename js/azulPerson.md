@@ -13,14 +13,20 @@ two input lines
 
 ## azulPersonV3
 
- - muliple input lines
- - positioning inputs
- - connecting inputs
+use arrays for multiple input lines
 
-## azulPersonV4
+ - muliple input lines 
 
- - 4a: use relative position
- - 4b: use grid
- - 4c: use flexbox
+## azulPerson4
+
+- move keyup and down to next and previous input
+
+## azulPersonV5
+
+experiment with positioning
+
+ - 5a: use relative position
+ - 5b: use grid
+ - 5c: use flexbox
 
 
