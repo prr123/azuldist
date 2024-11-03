@@ -39,7 +39,9 @@ class InpEl {
 			border: '1px dashed green',
 			minHeight: '40px',
 			width: this.mdInp.width,
-			position: 'relative',
+			position: 'absolute',
+			top: this.mdInp.top,
+			left: this.mdInp.left,
 		};
 		Object.assign(elDiv.style,elStyl);
 		elDiv.id = 'inpDiv'+this.idx;
@@ -154,25 +156,33 @@ class InpEl {
 	MdInpList.push({
 		width: '250px',
 		label: 'first',
+		top: '10px',
+		left: '20px',
 	});
 
 	MdInpList.push({
 		width: '300px',
 		label: 'last',
+		top: '60px',
+		left: '40px',
 	});
 
+	MdInpList.push({
+		width: '200px',
+		label: 'short',
+		top: '110px',
+		left: '30px',
+	});
+
+	perSite.mdDiv = azul.addElement(perSite.mdObj);
 
 	perSite.mdEl = new Array();
 	for (let i=0; i< MdInpList.length; i++) {
 		let entry = new InpEl(MdInpList,i);
 		perSite.mdEl.push(entry.creMdInp());
+		perSite.mdDiv.appendChild(perSite.mdEl[i]);
 	}
 
-	perSite.mdDiv = azul.addElement(perSite.mdObj);
-
-	perSite.mdDiv.appendChild(perSite.mdEl[0]);
-	perSite.mdDiv.appendChild(perSite.mdEl[1]);
-
-
+//	perSite.mdDiv.appendChild(perSite.mdEl[1]);
 	azul.docbody.appendChild(perSite.mdDiv);
 
