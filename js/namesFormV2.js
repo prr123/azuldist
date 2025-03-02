@@ -1,0 +1,144 @@
+let site = {
+	name: 'nameForm',
+	curInp: 0,
+	inpNum: 5,
+	render: function () {
+		const namesObj = {
+			style: {
+				minHeight: '200px',
+				margin: '10px',
+				border: '1px dashed blue',
+				position: 'relative',
+			},
+			id: 'namesForm',
+			typ: 'div',
+		};
+
+		const namesDiv = azul.addElement(namesObj);
+
+		let gridObj = {
+    		rows: 3,
+    		cols: 1,
+    		style: {
+        		display: 'grid',
+        		border: '1px dashed blue',
+        		margin: '10px',
+        		minHeight: '100px',
+			},
+			elStyle: {
+				display: 'flex',
+				flexWrap: 'wrap',
+//        	margin: '5px',
+ 				outline: '1px dashed magenta',
+// 			border: '1px dashed green',
+			}
+		};
+
+		let namgrid = azul.addGrid(gridObj);
+
+		this.inp1 = new azulInp({Field: 'First', Length: '150px', idx: 1});
+		this.inp2 = new azulInp({Field: 'Middle', Length: '200px', idx: 2});
+		this.inp3 = new azulInp({Field: 'Last', Length: '200px', idx: 3});
+
+		let firstRow = namgrid.els[0][0];
+		firstRow.appendChild(this.inp1.getInpEl());
+		firstRow.appendChild(this.inp2.getInpEl());
+		firstRow.appendChild(this.inp3.getInpEl());
+
+		let secRow = namgrid.els[1][0];
+		this.inp4 = new azulInp({Field: 'Email',Length: '250px', idx: 4});
+		secRow.appendChild(this.inp4.getInpEl());
+
+
+		let thirdRow = namgrid.els[2][0];
+		this.inp5 = new azulInp({Field: 'Phone',Length: '250px', idx: 5});
+		thirdRow.appendChild(this.inp5.getInpEl());
+
+		this.inp1.setnextprev(this.inp2, this.inp5);
+		this.inp2.setnextprev(this.inp3, this.inp1);
+		this.inp3.setnextprev(this.inp4, this.inp2);
+		this.inp4.setnextprev(this.inp5, this.inp3);
+		this.inp5.setnextprev(this.inp1, this.inp4);
+
+		const butDivObj = {
+			style: {
+				height: '50px',
+				margin: '10px',
+				border: '1px dashed blue',
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'center',
+//			position: 'relative',
+			},
+			id: 'butDiv',
+			typ: 'div',
+		};
+
+		let butDiv = azul.addElement(butDivObj);
+
+		const butStyl = {
+            height: '30px',
+            width: '100px',
+            border: '1px solid green',
+        };
+
+		const butObj = {
+        	style: butStyl,
+//        parent: azul.header,
+        	typ: 'button',
+        	textContent: 'submit',
+        	evlist: {
+//            	click: this.subfunc,
+            	click: this.getInpValues,
+        	},
+
+    	};
+
+		const formBut = azul.addElement(butObj);
+
+		butDiv.appendChild(formBut);
+
+		const hdNamesObj = {
+    		style: {
+        		color: 'Green',
+        		margin: 'auto',
+        		textAlign: 'center',
+        		padding: '0.5rem',
+        		fontSize: '2rem',
+    		},
+    		id: 'NameHd',
+    		textContent: 'Name Form',
+    		typ: 'h1',
+		};
+
+		const formTitle = azul.addElement(hdNamesObj);
+
+		namesDiv.appendChild(formTitle);
+
+		namesDiv.appendChild(namgrid);
+
+		namesDiv.appendChild(butDiv);
+
+		return namesDiv;
+	},
+
+	getInpValues: function() {
+		let inpVal = {
+			First: site.inp1.getInpValue(),
+			Middle: site.inp2.getInpValue(),
+			Last: site.inp3.getInpValue(),
+			Email: site.inp4.getInpValue(),
+			Phone: site.inp5.getInpValue(),
+		};
+		const inpJsonStr = JSON.stringify(inpVal)
+		console.log('hello inp: ' + inpJsonStr);
+		return inpJsonStr;
+	},
+};
+
+
+
+let namesDiv = site.render();
+
+azul.docbody.appendChild(namesDiv);
+
