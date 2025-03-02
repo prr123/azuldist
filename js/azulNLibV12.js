@@ -178,9 +178,6 @@ let azul = {
 		gridDiv.cols = gridObj.cols;
 		gridDiv.rows = gridObj.rows;
 
-//    	geStyl = {
-//        	border: '1px solid green',
-//    	};
 		let gridEls = [];
 
     	for (let irow = 0; irow< gridObj.rows; irow++) {
